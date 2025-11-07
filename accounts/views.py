@@ -3,9 +3,11 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+from drf_yasg.utils import swagger_auto_schema
 from .models import User
-from .serializers import UserSerializer, RegisterSerializer, LoginSerializer
+from .serializers import UserSerializer, RegisterSerializer, LoginSerializer, LogoutSerializer
 
+@swagger_auto_schema(method='post', request_body=RegisterSerializer)
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register(request):
@@ -22,6 +24,7 @@ def register(request):
         }, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@swagger_auto_schema(method='post', request_body=LoginSerializer)
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def login(request):
@@ -38,6 +41,7 @@ def login(request):
         }, status=status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@swagger_auto_schema(method='post', request_body=LogoutSerializer)
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def logout(request):

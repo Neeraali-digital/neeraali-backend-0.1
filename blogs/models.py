@@ -9,6 +9,7 @@ class Blog(models.Model):
     title = models.CharField(max_length=200)
     excerpt = models.TextField()
     content = models.TextField()
+    related_to = models.CharField(max_length=200, blank=True, null=True)
     author = models.CharField(max_length=100)
     publish_date = models.DateField()
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')

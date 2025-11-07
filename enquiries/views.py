@@ -2,9 +2,11 @@ from rest_framework import generics, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
+from drf_yasg.utils import swagger_auto_schema
 from .models import Enquiry
 from .serializers import EnquirySerializer, EnquiryCreateSerializer
 
+@swagger_auto_schema(method='post', request_body=EnquiryCreateSerializer)
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def create_enquiry(request):

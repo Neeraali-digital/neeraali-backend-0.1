@@ -1,12 +1,14 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from drf_yasg.utils import swagger_auto_schema
 from services.models import Service
 from blogs.models import Blog
 from enquiries.models import Enquiry
 from reviews.models import Review
 from careers.models import Job
 
+@swagger_auto_schema(method='get')
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def dashboard_stats(request):
