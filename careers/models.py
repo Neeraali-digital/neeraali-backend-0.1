@@ -22,6 +22,24 @@ class Job(models.Model):
     requirements = models.JSONField(default=list)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='active')
     applications = models.IntegerField(default=0)
+
+    # Additional fields for detailed job descriptions
+    shift_work = models.CharField(max_length=50, default='No')
+    career_area = models.CharField(max_length=100, default='General')
+    contractual_location = models.CharField(max_length=100, default='')
+    term_of_employment = models.CharField(max_length=100, default='Permanent')
+
+    # Detailed job description sections
+    job_description = models.TextField(default='')
+    the_opportunity = models.TextField(default='')
+    what_youll_be_doing = models.TextField(default='')
+    your_work_location = models.TextField(default='')
+    who_you_are = models.TextField(default='')
+    security_vetting = models.TextField(default='')
+    pay = models.TextField(default='')
+    benefits_and_culture = models.TextField(default='')
+    additional_information = models.TextField(default='')
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
