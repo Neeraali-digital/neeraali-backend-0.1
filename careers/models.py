@@ -40,6 +40,13 @@ class Job(models.Model):
     benefits_and_culture = models.TextField(default='')
     additional_information = models.TextField(default='')
 
+    # Additional fields
+    contact_email = models.EmailField(max_length=254, blank=True, default='hr@neeraali.com')
+    application_deadline = models.DateField(blank=True, null=True)
+    is_featured = models.BooleanField(default=False)
+    remote_work_available = models.BooleanField(default=False)
+    salary_range = models.CharField(max_length=100, blank=True, default='')
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
