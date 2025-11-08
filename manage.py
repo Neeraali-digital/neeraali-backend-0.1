@@ -7,6 +7,15 @@ import sys
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'neeraali_backend.settings')
+    
+    # Ensure database file exists for SQLite
+    if 'migrate' in sys.argv or 'runserver' in sys.argv:
+        from pathlib import Path
+        BASE_DIR = Path(__file__).resolve().parent
+        db_path = BASE_DIR / 'db.sqlite3'
+        if not db_path.exists():
+            db_path.touch()
+    
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
