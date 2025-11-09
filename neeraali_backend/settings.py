@@ -192,7 +192,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://neeraali.com",
 ]
 
-ALLOWED_HOSTS = ['neeraali.com', '127.0.0.1']
+ALLOWED_HOSTS = ['app.neeraali.com', '127.0.0.1']
 
 
 CORS_ALLOW_METHODS = [
