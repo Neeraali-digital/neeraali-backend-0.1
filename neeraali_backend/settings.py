@@ -190,6 +190,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:4200",
     "http://127.0.0.1:4200",
     "https://neeraali.com",
+    "https://www.neeraali.com"
 ]
 
 ALLOWED_HOSTS = ['app.neeraali.com', '127.0.0.1']
