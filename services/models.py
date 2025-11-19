@@ -15,6 +15,7 @@ class Service(models.Model):
     hero_section = models.JSONField(default=dict, blank=True)  # {title, subtitle, description, button_text}
     services_section = models.JSONField(default=list, blank=True)  # List of {icon, title, description}
     faq_section = models.JSONField(default=list, blank=True)  # List of {question, answer}
+    order = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -22,4 +23,4 @@ class Service(models.Model):
         return self.name
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['order', '-created_at']

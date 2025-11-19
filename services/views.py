@@ -45,3 +45,31 @@ class AdminServiceDetailView(generics.RetrieveUpdateDestroyAPIView):
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
         return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def update_service_order(request):
+    if not request.user.is_admin:
+        return Response({'error': 'Permission denied'}, status=status.HTTP_403_FORBIDDEN)
+    
+    service_orders = request.data.get('service_orders', [])
+    
+    # Use transaction to ensure atomicity
+    from django.db import transaction
+    
+    try:
+        with transaction.atomic():
+            for item in service_orders:
+                service_id = item.get('id')
+                new_order = item.get('order')
+                
+                service = Service.objects.get(id=service_id)
+                service.order = new_order
+                service.save(update_fields=['order'])
+                
+    except Service.DoesNotExist:
+        return Response({'error': 'Service not found'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
+    
+    return Response({'message': 'Service order updated successfully'}, status=status.HTTP_200_OK)
