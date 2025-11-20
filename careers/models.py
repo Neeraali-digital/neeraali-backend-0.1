@@ -55,3 +55,48 @@ class Job(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+
+class JobApplication(models.Model):
+    APPLICATION_TYPE_CHOICES = [
+        ('interested', 'I am Interested'),
+        ('referral', 'Refer a Friend'),
+    ]
+
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('reviewed', 'Reviewed'),
+        ('shortlisted', 'Shortlisted'),
+        ('rejected', 'Rejected'),
+    ]
+
+    job = models.ForeignKey(Job, on_delete=models.CASCADE, related_name='job_applications')
+    application_type = models.CharField(max_length=20, choices=APPLICATION_TYPE_CHOICES)
+    
+    # Applicant Information
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone = models.CharField(max_length=20)
+    
+    # Additional fields for referrals
+    friend_first_name = models.CharField(max_length=100, blank=True, null=True)
+    friend_last_name = models.CharField(max_length=100, blank=True, null=True)
+    friend_email = models.EmailField(blank=True, null=True)
+    friend_phone = models.CharField(max_length=20, blank=True, null=True)
+    
+    # Optional fields
+    cover_letter = models.TextField(blank=True, null=True)
+    resume = models.FileField(upload_to='resumes/', blank=True, null=True)
+    
+    # Status and tracking
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        if self.application_type == 'referral':
+            return f"{self.first_name} {self.last_name} referred {self.friend_first_name} {self.friend_last_name} for {self.job.title}"
+        return f"{self.first_name} {self.last_name} applied for {self.job.title}"
+    
+    class Meta:
+        ordering = ['-created_at']
