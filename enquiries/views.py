@@ -25,6 +25,9 @@ class AdminEnquiryListView(generics.ListAPIView):
     def get_queryset(self):
         if not self.request.user.is_admin:
             return Enquiry.objects.none()
+        enquiry_type = self.request.query_params.get('enquiry_type', None)
+        if enquiry_type:
+            return Enquiry.objects.filter(enquiry_type=enquiry_type)
         return super().get_queryset()
 
 class AdminEnquiryDetailView(generics.RetrieveUpdateDestroyAPIView):

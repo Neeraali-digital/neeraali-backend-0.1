@@ -7,6 +7,8 @@ class EnquirySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class EnquiryCreateSerializer(serializers.ModelSerializer):
+    enquiry_type = serializers.ChoiceField(choices=Enquiry.ENQUIRY_TYPE_CHOICES, default='general')
+
     class Meta:
         model = Enquiry
-        fields = ['name', 'email', 'phone', 'company', 'service', 'message']
+        fields = ['enquiry_type', 'name', 'email', 'phone', 'company', 'service', 'message']
