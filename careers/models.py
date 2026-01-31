@@ -14,38 +14,20 @@ class Job(models.Model):
     ]
 
     title = models.CharField(max_length=200)
-    department = models.CharField(max_length=100)
-    location = models.CharField(max_length=100)
+    company = models.CharField(max_length=100, default='Neeraali Digital')
+    location = models.CharField(max_length=100, default='Bengaluru (On-site)')
     type = models.CharField(max_length=20, choices=TYPE_CHOICES, default='full-time')
     experience = models.CharField(max_length=100)
-    description = models.TextField()
-    requirements = models.JSONField(default=list)
+    
+    # Description fields
+    job_description = models.TextField(default='')
+    responsibilities = models.TextField(default='')
+    requirements = models.JSONField(default=list) # Skills Required
+    working_days_timings = models.CharField(max_length=200, default='')
+    how_to_apply = models.TextField(default='', blank=True)
+
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='active')
     applications = models.IntegerField(default=0)
-
-    # Additional fields for detailed job descriptions
-    shift_work = models.CharField(max_length=50, default='No')
-    career_area = models.CharField(max_length=100, default='General')
-    contractual_location = models.CharField(max_length=100, default='')
-    term_of_employment = models.CharField(max_length=100, default='Permanent')
-
-    # Detailed job description sections
-    job_description = models.TextField(default='')
-    the_opportunity = models.TextField(default='')
-    what_youll_be_doing = models.TextField(default='')
-    your_work_location = models.TextField(default='')
-    who_you_are = models.TextField(default='')
-    security_vetting = models.TextField(default='')
-    pay = models.TextField(default='')
-    benefits_and_culture = models.TextField(default='')
-    additional_information = models.TextField(default='')
-
-    # Additional fields
-    contact_email = models.EmailField(max_length=254, blank=True, default='hr@neeraali.com')
-    application_deadline = models.DateField(blank=True, null=True)
-    is_featured = models.BooleanField(default=False)
-    remote_work_available = models.BooleanField(default=False)
-    salary_range = models.CharField(max_length=100, blank=True, default='')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

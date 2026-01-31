@@ -12,8 +12,8 @@ class JobListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Job
         fields = [
-            'id', 'title', 'department', 'location', 'type', 'experience', 'status', 'applications',
-            'shift_work', 'career_area', 'contractual_location', 'term_of_employment', 'applications_count'
+            'id', 'title', 'company', 'location', 'type', 'experience', 'status', 'applications',
+            'working_days_timings', 'applications_count', 'created_at'
         ]
     
     def get_applications_count(self, obj):
