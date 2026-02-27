@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-7*uefxf+p6no=87a&5%5+
 # SECURITY WARNING: don't run with debug turned on in production !
 DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -193,7 +193,7 @@ CORS_ALLOWED_ORIGINS = [
     "https://www.neeraali.com"
 ]
 
-ALLOWED_HOSTS = ['app.neeraali.com', '127.0.0.1','localhost']
+ALLOWED_HOSTS = ['backend.neeraali.com', '127.0.0.1','localhost']
 
 
 CORS_ALLOW_METHODS = [
